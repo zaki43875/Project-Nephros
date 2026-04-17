@@ -4,6 +4,7 @@ DRV8225 and NEMA17
 https://lastminuteengineers.com/drv8825-stepper-motor-driver-arduino-tutorial/
 - gives good info on how controls stepping motor
 
+https://www.ampheo.com/blog/stm32-four-precision-control-methods-for-stepper-motors
 
 TIM
 https://wiki.st.com/stm32mcu/wiki/Getting_started_with_TIM#What_is_a_timer_-28TIM-29--
