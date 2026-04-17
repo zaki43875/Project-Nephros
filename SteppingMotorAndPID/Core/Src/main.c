@@ -70,9 +70,6 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  const int stepsPerRev = 200; //not necessary atp
-  int32_t CH1_DC = 0; //these aren't necessary at this point
-
   const double kP = 0.1;
   double initError = 1.0;
   double errorAndKP = 0.0;
@@ -111,14 +108,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	HAL_GPIO_WritePin(GPIOA, DirPin_Pin, GPIO_PIN_SET); //Sets direction to high (clockwise)
+	HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //Sets direction to high (clockwise)
 	//lowkey this pin isn't even needed if its just going in one direction the whole time and the direction needs the low one.
 
 	double errorAndKP = kP * initError; //this would only work after recieving error from somewhere
 
 	//frequency = (timclocksource / prescaler) / ARR (period)
 	//smaller arr value = higher the frequency
-
 
 
 	//ARR = frequency
