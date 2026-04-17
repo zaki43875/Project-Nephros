@@ -70,7 +70,13 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+  const int stepsPerRev = 200; //not necessary atp
+  int32_t CH1_DC = 0; //these aren't necessary at this point
 
+  const double kP = 0.1;
+  double initError = 1.0;
+  double errorAndKP = 0.0;
+  char buffer[50];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -94,7 +100,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,6 +110,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	HAL_GPIO_WritePin(GPIOA, DirPin_Pin, GPIO_PIN_SET); //Sets direction to high (clockwise)
+	//lowkey this pin isn't even needed if its just going in one direction the whole time and the direction needs the low one.
+
+	double errorAndKP = kP * initError; //this would only work after recieving error from somewhere
+
+	//frequency = (timclocksource / prescaler) / ARR (period)
+	//smaller arr value = higher the frequency
+
+
+
+	//ARR = frequency
+	//PSC = speed
+	//CCR = length of pulse (on)
+
+	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
   }
   /* USER CODE END 3 */
 }
