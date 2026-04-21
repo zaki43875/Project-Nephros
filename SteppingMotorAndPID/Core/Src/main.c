@@ -69,10 +69,10 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  //For PID stuff
-  const double kP = 0.1;
-  double initError = 1.0; //this is a place holder (think it will come from group A.
-  double errorAndKP = 0.0;
+  //placeholder testing values
+  double slow = 0.1;
+  double medium = 0.2;
+  double fast = 0.3;
 
   //For Messages
   char buffer[50];
@@ -99,7 +99,14 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+  //Start PWM which starts stepping
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+
+  /* Example console message.
+  sprintf(buffer, "Start PWM\r\n");
+  HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), 100);
+  */
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,20 +117,23 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //Sets direction to high (clockwise)
-	//lowkey this pin isn't even needed if its just going in one direction the whole time and the direction needs the low one.
+  //For changing direction of motor
+	//HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //test which direction is clockwise vs anti
 
-	double errorAndKP = kP * initError; //this would only work after recieving error from somewhere
 
 	//frequency = (timclocksource / prescaler) / ARR (period)
 	//smaller arr value = higher the frequency
-
 
 	//ARR = frequency
 	//PSC = speed
 	//CCR = length of pulse (on)
 
-	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+  //Change ARR (choose a method)
+  //TIM1->ARR = slow;
+  //__HAL_TIM_SET_AUTORELOAD(&htim1, slow)
+
+  //Set LED stuff
+	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
   }
   /* USER CODE END 3 */
 }
