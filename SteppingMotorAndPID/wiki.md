@@ -20,6 +20,8 @@ https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/
 HAL library
 https://www.st.com/resource/en/user_manual/um1884-description-of-stm32l4l4-hal-and-lowlayer-drivers-stmicroelectronics.pdf
 
+STM32 PIN DIAGRAM
+https://os.mbed.com/platforms/ST-Nucleo-L432KC/
 
 
 

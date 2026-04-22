@@ -69,11 +69,20 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  //placeholder testing values
-  double slow = 0.1;
-  double medium = 0.2;
-  double fast = 0.3;
 
+
+  /*frequency = (timclocksource / PSC) / ARR (period)
+	smaller ARR value = higher the frequency
+
+	ARR = frequency
+	PSC = speed		(currently 80-1, matching 80mhz timclocksource (edit in clock config))
+	CCR = length of pulse (on) ((ARR+1)/2 for 50% Duty Cycle)*/
+
+
+  //ARR value required for different frequencies
+  uint32_t hz = 1000000-1; //current arr set at 1000-1 = 1khz.
+  uint32_t khz = 1000-1;
+  uint32_t tenkhz = 100-1;
   //For Messages
   char buffer[50];
   /* USER CODE END 1 */
@@ -98,14 +107,15 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   //Start PWM which starts stepping
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
-  /* Example console message.
-  sprintf(buffer, "Start PWM\r\n");
+  //Example console message.
+  sprintf(buffer, "StartwithPWM\r\n");
   HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), 100);
-  */
+
 
   /* USER CODE END 2 */
 
@@ -116,24 +126,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	HAL_Delay(500);
 
-  //For changing direction of motor
-	//HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //test which direction is clockwise vs anti
+	//For changing direction of motor
+	HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //test which direction is clockwise vs anti
 
-
-	//frequency = (timclocksource / prescaler) / ARR (period)
-	//smaller arr value = higher the frequency
-
-	//ARR = frequency
-	//PSC = speed
-	//CCR = length of pulse (on)
 
   //Change ARR (choose a method)
   //TIM1->ARR = slow;
   //__HAL_TIM_SET_AUTORELOAD(&htim1, slow)
 
-  //Set LED stuff
-	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+
   }
   /* USER CODE END 3 */
 }
@@ -170,7 +174,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
   RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 16;
+  RCC_OscInitStruct.PLL.PLLN = 40;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -188,7 +192,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
   {
     Error_Handler();
   }
