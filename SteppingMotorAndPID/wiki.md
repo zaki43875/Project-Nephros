@@ -19,3 +19,27 @@ https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/
 
 HAL library
 https://www.st.com/resource/en/user_manual/um1884-description-of-stm32l4l4-hal-and-lowlayer-drivers-stmicroelectronics.pdf
+
+STM32 PIN DIAGRAM
+https://os.mbed.com/platforms/ST-Nucleo-L432KC/
+
+
+
+
+console stuff
+Adding UART2 console view in terminal for Debugging purposes:
+
+Window > perspective > other > Debug
+
+On right side panel click the console option (blue computer)
+
+Click the yellow icon with blue line at top with yellow plus (open console)
+
+Choose Command Shell Prompt
+
+- Connection Type: Serial Port
+- Connection name: -> New: 
+---Choose a Connection Name, 
+---Serial Port: Go into Device Manager and Find the Port Number of the STM named one, Use this.
+
+Then Create.

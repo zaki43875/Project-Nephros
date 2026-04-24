@@ -69,13 +69,28 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  //For PID stuff
-  const double kP = 0.1;
-  double initError = 1.0; //this is a place holder (think it will come from group A.
-  double errorAndKP = 0.0;
+
+
+  /*frequency = (timclocksource / PSC) / ARR (period)
+	smaller ARR value = higher the frequency
+
+	ARR = frequency
+	PSC = speed		(currently 80-1, matching 80mhz timclocksource (edit in clock config))
+	CCR = length of pulse (on) ((ARR+1)/2 for 50% Duty Cycle)
+
+	At 1/32 steps, we have 6400 steps per revolution. Which is 6.4khz per revolution.
+	*/
+
+  //ARR value required for different frequencies
+  //Slower Values to the top
+  uint32_t hz = 1000000-1; //current ARR set at 1000-1 = 1khz.
+  uint32_t khz = 1000-1;
+  uint32_t tenkhz = 100-1;
+  //Faster Values to the bottom
 
   //For Messages
   char buffer[50];
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -98,8 +113,16 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  //Start PWM which starts stepping
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+
+  //Example console message.
+  sprintf(buffer, "StartwithPWM\r\n");
+  HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), 100);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,21 +132,26 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	HAL_Delay(500);
 
-	HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //Sets direction to high (clockwise)
-	//lowkey this pin isn't even needed if its just going in one direction the whole time and the direction needs the low one.
+	//Frequency Change
+	uint32_t frequency = khz;
+	uint32_t CCRValue = (frequency + 1) /2;
+	__HAL_TIM_SET_AUTORELOAD(&htim2, frequency);
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, CCRValue);
+	HAL_TIM_GenerateEvent(&htim2, TIM_EVENTSOURCE_UPDATE);
 
-	double errorAndKP = kP * initError; //this would only work after recieving error from somewhere
 
-	//frequency = (timclocksource / prescaler) / ARR (period)
-	//smaller arr value = higher the frequency
+	//For changing direction of motor
+	HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //test which direction is clockwise vs anti
 
 
-	//ARR = frequency
-	//PSC = speed
-	//CCR = length of pulse (on)
+  //Change ARR (choose a method)
+  //TIM1->ARR = slow;
+  //__HAL_TIM_SET_AUTORELOAD(&htim1, slow)
 
-	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+
   }
   /* USER CODE END 3 */
 }
@@ -160,7 +188,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
   RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 16;
+  RCC_OscInitStruct.PLL.PLLN = 40;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -178,7 +206,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
   {
     Error_Handler();
   }

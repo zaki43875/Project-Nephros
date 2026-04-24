@@ -16,3 +16,6 @@ Release/
 
 # Logs
 *.log
+
+# STM32CubeIDE launch configs
+*.launch
