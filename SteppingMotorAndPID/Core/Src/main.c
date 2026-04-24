@@ -81,7 +81,6 @@ int main(void)
 	At 1/32 steps, we have 6400 steps per revolution. Which is 6.4khz per revolution.
 	*/
 
-
   //ARR value required for different frequencies
   //Slower Values to the top
   uint32_t hz = 1000000-1; //current ARR set at 1000-1 = 1khz.
@@ -91,6 +90,7 @@ int main(void)
 
   //For Messages
   char buffer[50];
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
