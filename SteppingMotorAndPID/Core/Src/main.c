@@ -76,13 +76,19 @@ int main(void)
 
 	ARR = frequency
 	PSC = speed		(currently 80-1, matching 80mhz timclocksource (edit in clock config))
-	CCR = length of pulse (on) ((ARR+1)/2 for 50% Duty Cycle)*/
+	CCR = length of pulse (on) ((ARR+1)/2 for 50% Duty Cycle)
+
+	At 1/32 steps, we have 6400 steps per revolution. Which is 6.4khz per revolution.
+	*/
 
 
   //ARR value required for different frequencies
-  uint32_t hz = 1000000-1; //current arr set at 1000-1 = 1khz.
+  //Slower Values to the top
+  uint32_t hz = 1000000-1; //current ARR set at 1000-1 = 1khz.
   uint32_t khz = 1000-1;
   uint32_t tenkhz = 100-1;
+  //Faster Values to the bottom
+
   //For Messages
   char buffer[50];
   /* USER CODE END 1 */
@@ -128,6 +134,14 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	HAL_Delay(500);
+
+	//Frequency Change
+	uint32_t frequency = khz;
+	uint32_t CCRValue = (frequency + 1) /2;
+	__HAL_TIM_SET_AUTORELOAD(&htim2, frequency);
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, CCRValue);
+	HAL_TIM_GenerateEvent(&htim2, TIM_EVENTSOURCE_UPDATE);
+
 
 	//For changing direction of motor
 	HAL_GPIO_WritePin(GPIOA, Direction_Pin, GPIO_PIN_SET); //test which direction is clockwise vs anti
