@@ -851,3 +851,52 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-04-21 17:07:28.217
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2026-04-24 17:36:53.364 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_AU
+Framework arguments:  C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-04-24 17:37:29.896
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-04-24 17:37:29.900
+!MESSAGE Log4j2 initialized with config file C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-04-24 17:37:53.156
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-04-24 17:38:07.032
+!MESSAGE Indexed 'task1' (25 sources, 124 headers) in 13.4 sec: 12,832 declarations; 59,669 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.24%)
+!SESSION 2026-04-28 15:29:55.335 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_AU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-04-28 15:30:04.143
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-04-28 15:30:04.145
+!MESSAGE Log4j2 initialized with config file C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-04-28 15:30:16.053
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2026-05-01 13:40:32.960 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_AU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-05-01 13:40:58.524
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-05-01 13:40:58.527
+!MESSAGE Log4j2 initialized with config file C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-05-01 13:41:10.401
+!MESSAGE Started RMI Server, listening on port 41337

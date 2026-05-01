@@ -541,3 +541,537 @@ arm-none-eabi-size  task1.elf
   33652	    468	   2140	  36260	   8da4	task1.elf
 Finished building: default.size.stdout
  
+15:35:51 **** Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32l4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32l4xx_hal_msp.d" -MT"Core/Src/stm32l4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32l4xx_hal_msp.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33356	    468	   2276	  36100	   8d04	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+15:36:15 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33356	    468	   2276	  36100	   8d04	task1.elf
+Finished building: default.size.stdout
+ 
+15:37:04 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33356	    468	   2276	  36100	   8d04	task1.elf
+Finished building: default.size.stdout
+ 
+15:38:56 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33356	    468	   2276	  36100	   8d04	task1.elf
+Finished building: default.size.stdout
+ 
+15:39:15 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33356	    468	   2276	  36100	   8d04	task1.elf
+Finished building: default.size.stdout
+ 
+15:51:03 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:151:26: error: 'adcValue' undeclared (first use in this function); did you mean 'adcValue2'?
+  151 |           double Vout = (adcValue / ADC_MAX) * V_REF;
+      |                          ^~~~~~~~
+      |                          adcValue2
+../Core/Src/main.c:151:26: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:161:41: error: 'T_NOMINAL' undeclared (first use in this function)
+  161 |           double tempK2 = 1.0 / ((1.0 / T_NOMINAL) + (1.0 / BETA) * log(resistance2 / R_NOMINAL));
+      |                                         ^~~~~~~~~
+../Core/Src/main.c:161:87: error: 'R_NOMINAL' undeclared (first use in this function)
+  161 |           double tempK2 = 1.0 / ((1.0 / T_NOMINAL) + (1.0 / BETA) * log(resistance2 / R_NOMINAL));
+      |                                                                                       ^~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+15:52:26 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:80:18: warning: variable 'adcValue2' set but not used [-Wunused-but-set-variable]
+   80 |         uint32_t adcValue2 = 0;
+      |                  ^~~~~~~~~
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33100	    468	   2276	  35844	   8c04	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+15:52:59 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33100	    468	   2276	  35844	   8c04	task1.elf
+Finished building: default.size.stdout
+ 
+16:03:15 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:124:32: warning: implicit declaration of function 'readADC' [-Wimplicit-function-declaration]
+  124 |           uint32_t adcValue1 = readADC(ADC_CHANNEL_5);
+      |                                ^~~~~~~
+../Core/Src/main.c:127:26: warning: implicit declaration of function 'adcToTemperature' [-Wimplicit-function-declaration]
+  127 |           double temp1 = adcToTemperature(adcValue1);
+      |                          ^~~~~~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:362:8: error: conflicting types for 'adcToTemperature'; have 'double(uint32_t)' {aka 'double(long unsigned int)'}
+  362 | double adcToTemperature(uint32_t adcValue)
+      |        ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:127:26: note: previous implicit declaration of 'adcToTemperature' with type 'int()'
+  127 |           double temp1 = adcToTemperature(adcValue1);
+      |                          ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:375:10: error: conflicting types for 'readADC'; have 'uint32_t(uint32_t)' {aka 'long unsigned int(long unsigned int)'}
+  375 | uint32_t readADC(uint32_t channel)
+      |          ^~~~~~~
+../Core/Src/main.c:124:32: note: previous implicit declaration of 'readADC' with type 'int()'
+  124 |           uint32_t adcValue1 = readADC(ADC_CHANNEL_5);
+      |                                ^~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+16:06:10 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:06:33 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:12:12 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:12:33 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:13:25 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:13:47 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:18:32 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:18:51 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:20:38 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:21:03 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:24:34 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:24:58 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:31:08 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:31:35 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33236	    468	   2276	  35980	   8c8c	task1.elf
+Finished building: default.size.stdout
+ 
+16:32:48 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:33:04 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+16:34:16 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:34:41 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+16:47:46 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+16:48:16 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:08:44 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:09:12 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:22:18 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:128:43: error: 'adcValue1' undeclared (first use in this function); did you mean 'adcValue2'?
+  128 |           double temp1 = adcToTemperature(adcValue1);
+      |                                           ^~~~~~~~~
+      |                                           adcValue2
+../Core/Src/main.c:128:43: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+17:27:42 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:133:19: error: 'temp1' undeclared (first use in this function); did you mean 'temp2'?
+  133 |                   temp1, adcValue1, temp2, adcValue2);
+      |                   ^~~~~
+      |                   temp2
+../Core/Src/main.c:133:19: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:133:26: error: 'adcValue1' undeclared (first use in this function); did you mean 'adcValue2'?
+  133 |                   temp1, adcValue1, temp2, adcValue2);
+      |                          ^~~~~~~~~
+      |                          adcValue2
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+17:28:16 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33188	    468	   2276	  35932	   8c5c	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:28:33 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33188	    468	   2276	  35932	   8c5c	task1.elf
+Finished building: default.size.stdout
+ 
+17:29:08 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33188	    468	   2276	  35932	   8c5c	task1.elf
+Finished building: default.size.stdout
+ 
+17:35:03 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:35:38 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:39:38 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:40:44 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:45:02 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:45:33 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:46:08 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:47:40 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:49:11 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:49:43 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33244	    468	   2276	  35988	   8c94	task1.elf
+Finished building: default.size.stdout
+ 
+17:54:25 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33260	    468	   2276	  36004	   8ca4	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+17:55:09 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33260	    468	   2276	  36004	   8ca4	task1.elf
+Finished building: default.size.stdout
+ 
+18:05:22 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L432xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "task1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\azaki\Documents\GitHub\Project-Nephros\task1\task1\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="task1.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: task1.elf
+ 
+arm-none-eabi-size  task1.elf 
+arm-none-eabi-objdump -h -S task1.elf  > "task1.list"
+   text	   data	    bss	    dec	    hex	filename
+  33820	    468	   2276	  36564	   8ed4	task1.elf
+Finished building: default.size.stdout
+ 
+Finished building: task1.list
+ 
+18:06:30 **** Incremental Build of configuration Debug for project task1 ****
+make -j20 all 
+arm-none-eabi-size  task1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33820	    468	   2276	  36564	   8ed4	task1.elf
+Finished building: default.size.stdout
+ 

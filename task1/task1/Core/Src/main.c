@@ -59,7 +59,8 @@ static void MX_USART2_UART_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+double adcToTemperature(uint32_t adcValue);
+uint32_t readADC(uint32_t channel);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -76,15 +77,12 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-	uint32_t adcValue1 = 0;
-	uint32_t adcValue2 = 0;
-	char uartMsg[100];
-
-
-	// Assumes 10kΩ @ 25°C, Beta ≈ 3950 (adjust per datasheet)
-    #define BETA        3950.0
-    #define R_NOMINAL   10000.0   // Resistance at 25°C
-    #define T_NOMINAL   298.15    // 25°C in Kelvin
+#define R_FIXED 10000.0
+#define R0      100000.0
+#define BETA    4261.0
+#define T0      298.15
+#define ADC_MAX 4095.0
+#define V_REF   3.3
 
 
 
@@ -110,6 +108,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_ADC1_Init();
+  HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);  // <-- add this
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
@@ -122,43 +121,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  ADC_ChannelConfTypeDef sConfig = {0};
+	  char uartMsg[120];
 
-	  // Thermistor 1
-	  sConfig.Channel = ADC_CHANNEL_5;
-	  sConfig.Rank = ADC_REGULAR_RANK_1;
-	  HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+	  uint32_t adcValue1 = readADC(ADC_CHANNEL_5);
+	  uint32_t adcValue2 = readADC(ADC_CHANNEL_6);
+//
+	  double temp1 = adcToTemperature(adcValue1);
+	  double temp2 = adcToTemperature(adcValue2);
 
-	  HAL_ADC_Start(&hadc1);
-	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	  adcValue1 = HAL_ADC_GetValue(&hadc1);
-
-	  // Thermistor 2
-	  sConfig.Channel = ADC_CHANNEL_6;
-	  HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-
-	  HAL_ADC_Start(&hadc1);
-	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	  adcValue2 = HAL_ADC_GetValue(&hadc1);
-
-	  // Calculations
-
-
-
-	  double voltage1 = (adcValue1 / 4095.0) * 3.3;
-	  double resistance1 = (10000.0 * voltage1) / (3.3 - voltage1);
-	  double tempK1 = 1.0 / ((1.0 / T_NOMINAL) + (1.0 / BETA) * log(resistance1 / R_NOMINAL));
-	  double temp1  = tempK1 - 273.15;
-
-	  double voltage2 = (adcValue2 / 4095.0) * 3.3;
-	  double resistance2 = (10000.0 * voltage2) / (3.3 - voltage2);
-	  double tempK2 = 1.0 / ((1.0 / T_NOMINAL) + (1.0 / BETA) * log(resistance2 / R_NOMINAL));
-	  double temp2  = tempK2 - 273.15;
-
-	  // Print data
 	  sprintf(uartMsg,
-	      "T1 = %.2f C (ADC %lu), T2 = %.2f C (ADC %lu)\r\n",
-	      temp1, adcValue1, temp2, adcValue2);
+	  		  "T1 = %.2f C (ADC %lu) | T2 = %.2f C (ADC %lu)\r\n",
+	  		  temp1, adcValue1, temp2, adcValue2);
+
 	  HAL_UART_Transmit(&huart2, (uint8_t*)uartMsg, strlen(uartMsg), HAL_MAX_DELAY);
 
 	  HAL_Delay(1000);
@@ -268,9 +242,9 @@ static void MX_ADC1_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_5;
+  sConfig.Channel = ADC_CHANNEL_6;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
@@ -387,7 +361,48 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+double adcToTemperature(uint32_t adcValue)
+{
+    double Vout = (adcValue / ADC_MAX) * V_REF;
 
+    double R_therm = R_FIXED * (Vout / (V_REF - Vout));
+
+    double tempK = 1.0 / ((1.0 / T0) + (1.0 / BETA) * log(R_therm / R0));
+
+    return tempK - 273.15;
+}
+
+
+// Read + average ADC channel
+uint32_t readADC(uint32_t channel)
+{
+	ADC_ChannelConfTypeDef sConfig = {0};
+	sConfig.Channel      = channel;
+	sConfig.Rank         = ADC_REGULAR_RANK_1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;  // <-- add this
+	sConfig.SingleDiff   = ADC_SINGLE_ENDED;
+	sConfig.OffsetNumber = ADC_OFFSET_NONE;
+	sConfig.Offset       = 0;
+
+    HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+
+    uint32_t sum = 0;
+
+    // Dummy read (settling after channel switch)
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+    (void)HAL_ADC_GetValue(&hadc1);
+
+    // Average multiple samples
+    for (int i = 0; i < 10; i++)
+    {
+        HAL_ADC_Start(&hadc1);
+        HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+        sum += HAL_ADC_GetValue(&hadc1);
+    }
+
+    return sum / 10;
+}
 /* USER CODE END 4 */
 
 /**
