@@ -21,4 +21,4 @@ Release/
 *.launch
 
 #project
-*.project
+.project
