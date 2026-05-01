@@ -21,6 +21,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "PumpMotor.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -115,8 +116,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  //Start PWM which starts stepping
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  StartMotorPWM();
 
   //Example console message.
   sprintf(buffer, "StartwithPWM\r\n");
@@ -133,14 +133,10 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	HAL_Delay(500);
+	HAL_Delay(500); //this is bad:(
 
 	//Frequency Change
-	uint32_t frequency = khz;
-	uint32_t CCRValue = (frequency + 1) /2;
-	__HAL_TIM_SET_AUTORELOAD(&htim2, frequency);
-	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, CCRValue);
-	HAL_TIM_GenerateEvent(&htim2, TIM_EVENTSOURCE_UPDATE);
+	UpdateFrequency(khz);
 
 
 	//For changing direction of motor
