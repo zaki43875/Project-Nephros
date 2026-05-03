@@ -80,8 +80,11 @@ void EndPump(uint32_t *frequency) {
 
 
 void UpdatePID(int32_t error) {
+
+    //typically if error increase, we want to subtract it.
+    //make sure the kp value doesnt cause overcompensation (if too high)
     
-    int32_t errorChange = (error * kPID);
+    int32_t errorChange = (error * kP);
 
     int32_t frequency = (int32_t)GetFrequency();
     frequency += errorChange;
