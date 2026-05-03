@@ -10,13 +10,14 @@
 #include <stdio.h>
 #include <math.h>
 
-//Variables
+//Variables - TODO UPDATE VARIABLES TO REALISTIC VALUES 
  static uint32_t kTimeUpdateInterval = 0;
  static uint32_t kUpdateChange = 1;
  static uint32_t kFinalStartFrequency = 0;
  static uint32_t kEndFrequency = 0;
  
  static uint32_t kP = 0.1;
+ static int32_t kMaxPIDFrequencyChange = 1; 
 
 void StartMotorPWM(void){
     //Start PWM which starts stepping
@@ -85,7 +86,9 @@ void UpdatePID(int32_t error) {
     int32_t frequency = (int32_t)GetFrequency();
     frequency += errorChange;
 
-    if (frequency < 0) { frequency = kMaxPIDChangeFrequency}
+    if (frequency < 0) { frequency = 0};
+    if (frequency > kMaxPIDFrequencyChange) { frequency = kMaxPIDFrequencyChange};
+
     UpdateFrequency((uint32_t)frequency);
 
 }
