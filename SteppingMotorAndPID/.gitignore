@@ -19,6 +19,3 @@ Release/
 
 # STM32CubeIDE launch configs
 *.launch
-
-#project
-.project

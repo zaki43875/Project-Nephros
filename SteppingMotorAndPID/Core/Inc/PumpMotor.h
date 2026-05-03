@@ -13,8 +13,8 @@ extern "C" {
     void UpdateFrequency(uint32_t frequency);
     uint32_t GetFrequency(void);
     void StartPump(void);
-    void EndPump(void);
-    void UpdatePID(int error); //need to update error type
+    void EndPump(uint32_t *frequency);
+    void UpdatePID(int32_t error); //need to update error type
 
 #ifdef __cplusplus
 }

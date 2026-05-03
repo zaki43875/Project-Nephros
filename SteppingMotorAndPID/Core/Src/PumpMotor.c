@@ -11,10 +11,12 @@
 #include <math.h>
 
 //Variables
- uint32_t kTimeUpdateInterval = 0
- uint32_t kUpdateChange = 1
- uint32_t kFinalStartFrequency = 0
- uint32_t kEndFrequency = 0
+ static uint32_t kTimeUpdateInterval = 0;
+ static uint32_t kUpdateChange = 1;
+ static uint32_t kFinalStartFrequency = 0;
+ static uint32_t kEndFrequency = 0;
+ 
+ static uint32_t kP = 0.1;
 
 void StartMotorPWM(void){
     //Start PWM which starts stepping
@@ -32,8 +34,11 @@ uint32_t GetFrequency(void){
     return __HAL_TIM_GET_AUTORELOAD(&htim2);
 }
 
-//could potentially have this function return a string 
+//could potentially have startpump and endpump functions return a string 
 //so when it finishes that string can be printed to console
+
+//i think the finalfrequency this function reaches should be quite beneath
+//the expected frequency for flow rate otherwise it may be accidentally activated
 void StartPump(void) {
     //tim2 is currently set to tick every microsecond
     //we want to ramp up frequency a certain amount per a certain amount of time
@@ -43,33 +48,44 @@ void StartPump(void) {
 
     if (frequency < kFinalStartFrequency) {
         
-        currentTime = HAL_GetTick();
+        uint32_t currentTime = HAL_GetTick();
 
-        if (lastUpdate - currentTime >= kTimeUpdateInterval) {
+        if ((currentTime - lastUpdate) >= kTimeUpdateInterval) {
             frequency += kUpdateIncrease;
             UpdateFrequency(frequency);
         }
     }
 }
 
-void EndPump(void) {
+//this function may be a bit weird and needs some more thinking
+//we will only want to call it say when a button is pressed
+//at that time we will hand it the frequency and then this should work
+//but i need to double check this
+void EndPump(uint32_t *frequency) {
 
-    static uint32_t frequency = GetFrequency();
     static uint32_t lastUpdate = 0;
 
-    if (frequency > kEndFrequency) {
+    if (*frequency > kEndFrequency) {
         
-        currentTime = HAL_GetTick();
+        uint32_t currentTime = HAL_GetTick();
 
-        if (lastUpdate - currentTime >= kTimeUpdateInterval) {
-            frequency -= kUpdateIncrease;
-            UpdateFrequency(frequency);
+        if ((currentTime - lastUpdate) >= kTimeUpdateInterval) {
+            *frequency -= kUpdateIncrease;
+            UpdateFrequency(*frequency);
         }
     }
 }
 
 
 
-void UpdatePID(int error) {
+void UpdatePID(int32_t error) {
+    
+    int32_t errorChange = (error * kPID);
+
+    int32_t frequency = (int32_t)GetFrequency();
+    frequency += errorChange;
+
+    if (frequency < 0) { frequency = kMaxPIDChangeFrequency}
+    UpdateFrequency((uint32_t)frequency);
 
 }
